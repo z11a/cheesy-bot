@@ -1,6 +1,5 @@
-import('./config.json')
-
-const { Client, Events, GatewayIntentBits, messageLink } = import('discord.js');
+const { Client, Events, GatewayIntentBits, messageLink } = require('discord.js');
+const { TOKEN } = require('./config.json');
 
 const client = new Client({ 
     intents: [
@@ -27,4 +26,4 @@ client.on('messageCreate', (message) => {
 })*/
 
 // login to discord with token
-client.login(process.env.TOKEN);
+client.login(TOKEN);

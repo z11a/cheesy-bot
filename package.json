@@ -1,20 +1,21 @@
 {
   "name": "cheesy-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "��#\u0000 \u0000c\u0000h\u0000e\u0000e\u0000s\u0000y\u0000-\u0000b\u0000o\u0000t\u0000\r\u0000 \u0000",
   "main": "index.js",
-  "type" : "module",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node webscrape.js"
+    "start": "node webscrape.js"
   },
   "keywords": [],
-  "author": "A <3 R",
+  "author": "A",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
     "puppeteer": "^22.7.1"
   },
-  "types": "module"
+  "types": "module",
+  "devDependencies": {}
 }
