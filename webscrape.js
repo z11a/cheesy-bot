@@ -1,4 +1,4 @@
-import puppeteer from "puppeteer";
+const {puppeteer} = require('puppeteer-core')
 
 const getItems = async () => {
     const browser = await puppeteer.launch({
