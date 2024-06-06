@@ -18,16 +18,5 @@ client.once(Events.ClientReady, readyClient => {
     console.log('Ready!');
 });
 
-/* test hi
-client.on('messageCreate', (message) => {
-    if (message.author.bot) {
-        return;
-    }
-    
-    if (message.content == 'hi') {
-        message.reply('i have no clothes on');
-    }
-})*/
-
 // login to discord with token
 client.login(process.env.TOKEN);
