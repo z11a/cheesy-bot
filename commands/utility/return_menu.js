@@ -1,6 +1,20 @@
 const { SlashCommandBuilder, GuildMember } = require("discord.js");
 const getMenu = require("../../webscrape.js");
 
+function displayFoods(foods) {
+    return;
+}
+
+function displayMenu(menu, interaction) {
+    // first foodSection then the rest
+    const firstFoodSection = menu[0];
+    var finalString = `> # ${firstFoodSection.name}`;
+    
+    //finalString += ` ${firstFoodSection.foods[0].name}, ${firstFoodSection.foods[0].portion}, ${firstFoodSection.foods[0].calories}`;
+
+    return finalString;
+}
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('menu')
@@ -33,15 +47,15 @@ module.exports = {
         const mealName = interaction.options.getString('meal');
         
         await interaction.deferReply();  
-        const finalMenu = await getMenu(hallName, mealName);
+        const menu = await getMenu(hallName, mealName);
         
         // check if menu is empty
-        if (finalMenu.length == 0) {
+        if (menu.length == 0) {
             await interaction.editReply({ content: `> *${hallName} is not currently serving ${mealName}*.`, ephemeral: true });
             return;
         }
         else {
-            await interaction.editReply({ content: `> *return the menu all fancy*`, ephemeral: true });
+            await interaction.editReply({ content: displayMenu(menu), ephemeral: true});
         }
 
         return;
