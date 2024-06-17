@@ -38,11 +38,11 @@ async function getFood(foodSection) {
         const foodName = await row.$eval('.menu-item', (element) => element.textContent)
 
         // portion
-        const foodPortionOutside = await row.$('td[data-label="Portion"');
+        const foodPortionOutside = await row.$('td[data-label="Portion"]');
         const foodPortion = await foodPortionOutside.$eval('div', element => element.textContent);
 
         // calories
-        const foodCaloriesOutside = await row.$('td[data-label="Calories"');
+        const foodCaloriesOutside = await row.$('td[data-label="Calories"]');
         const foodCalories = await foodCaloriesOutside.$eval('div', element => element.textContent);
 
         finalFoods.push(new foodItem(foodName, foodPortion, foodCalories));
@@ -55,7 +55,7 @@ async function getFood(foodSection) {
  * returns an array of foodSection objects
 */
 async function getMenu(dining_hall, meal_name) {
-    console.log('getMenu exectuted...');
+    console.log('getMenu executed...');
     
     // create final array of foodSection objects
     var finalFoodSections = [];
@@ -69,10 +69,10 @@ async function getMenu(dining_hall, meal_name) {
     // Set screen size.
     await page.setViewport({width: 1080, height: 1024});
 
-    /*// test rn cuz its down
+    // test rn cuz its down
     await page.locator('#menuDatePicker').click();
     const date = await page.locator('::-p-xpath(//*[@id="menuDatePicker"]/div[2]/div[26])');
-    await date.click();*/
+    await date.click();
 
     // click dropdown
     await page.locator('#menu-location-selector').click();
@@ -112,7 +112,7 @@ async function getMenu(dining_hall, meal_name) {
         // had to use evaluate because each element is an elementHandle and we can't directly use textContent to retrive caption text
         const caption = await page.evaluate(element => element.textContent, captionElement);
         // add new foodSection object to our final array
-        finalFoodSections.push(new foodSection(caption, getFood(foodSectionElement).then((result) => console.log(result))));
+        finalFoodSections.push(new foodSection(caption, await getFood(foodSectionElement)));
     }
 
     console.log('end of getMenu');

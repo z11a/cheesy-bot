@@ -219,7 +219,8 @@ export class BrowsingContext extends EventEmitter<{
       if (info.context !== this.id) {
         return;
       }
-      this.#url = info.url;
+      // Note: we should not update this.#url at this point since the context
+      // has not finished navigating to the info.url yet.
 
       for (const [id, request] of this.#requests) {
         if (request.disposed) {
@@ -252,8 +253,9 @@ export class BrowsingContext extends EventEmitter<{
       if (event.context !== this.id) {
         return;
       }
-      if (event.redirectCount !== 0) {
+      if (this.#requests.has(event.request.request)) {
         // Means the request is a redirect. This is handled in Request.
+        // Or an Auth event was issued
         return;
       }
 
@@ -600,5 +602,22 @@ export class BrowsingContext extends EventEmitter<{
         });
       })
     );
+  }
+
+  @throwIfDisposed<BrowsingContext>(context => {
+    // SAFETY: Disposal implies this exists.
+    return context.#reason!;
+  })
+  async locateNodes(
+    locator: Bidi.BrowsingContext.Locator,
+    startNodes: [Bidi.Script.SharedReference, ...Bidi.Script.SharedReference[]]
+  ): Promise<Bidi.Script.NodeRemoteValue[]> {
+    // TODO: add other locateNodes options if needed.
+    const result = await this.#session.send('browsingContext.locateNodes', {
+      context: this.id,
+      locator,
+      startNodes: startNodes.length ? startNodes : undefined,
+    });
+    return result.result.nodes;
   }
 }

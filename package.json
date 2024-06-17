@@ -12,10 +12,10 @@
   "author": "A",
   "license": "ISC",
   "dependencies": {
+    "config": "^3.3.11",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
-    "puppeteer": "^22.7.1"
+    "puppeteer": "^22.11.0"
   },
-  "types": "module",
-  "devDependencies": {}
+  "types": "module"
 }

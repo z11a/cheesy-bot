@@ -6,13 +6,17 @@ function displayFoods(foods) {
 }
 
 function displayMenu(menu, interaction) {
-    // first foodSection then the rest
-    const firstFoodSection = menu[0];
-    var finalString = `> # ${firstFoodSection.name}`;
-    
-    //finalString += ` ${firstFoodSection.foods[0].name}, ${firstFoodSection.foods[0].portion}, ${firstFoodSection.foods[0].calories}`;
+    //var finalString = `> # ${firstFoodSection.name}`;
+    var finalString = "";
+    for (const section of menu) {
+        //console.log(section);
+        finalString += `### ${section.name}\n`;
+        for (const food of section.foods) {
+            finalString += `* ${food.name}\n`;
+        }
+    }
 
-    return finalString;
+    return finalString;  
 }
 
 module.exports = {
