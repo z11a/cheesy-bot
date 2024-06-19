@@ -69,7 +69,7 @@ async function getMenu(dining_hall, meal_name) {
     // Set screen size.
     await page.setViewport({width: 1080, height: 1024});
 
-    // test rn cuz its down
+    // for testing when no food is served today
     await page.locator('#menuDatePicker').click();
     const date = await page.locator('::-p-xpath(//*[@id="menuDatePicker"]/div[2]/div[26])');
     await date.click();
@@ -101,7 +101,8 @@ async function getMenu(dining_hall, meal_name) {
     }, meal_name);
 
     // wait for menu to load again
-    await page.waitForNetworkIdle();
+    //await page.waitForNetworkIdle();
+    await page.waitForSelector('.table.b-table.menu-items.b-table-caption-top.b-table-stacked-md');
     
     // create array of ElementHandles each foodSection
     const foodSectionElements = await page.$$('.table.b-table.menu-items.b-table-caption-top.b-table-stacked-md');

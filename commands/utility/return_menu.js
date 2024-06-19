@@ -1,12 +1,7 @@
-const { SlashCommandBuilder, GuildMember } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const getMenu = require("../../webscrape.js");
 
-function displayFoods(foods) {
-    return;
-}
-
-function displayMenu(menu, interaction) {
-    //var finalString = `> # ${firstFoodSection.name}`;
+/*function displayMenu(menu, interaction) {
     var finalString = "";
     for (const section of menu) {
         //console.log(section);
@@ -17,6 +12,27 @@ function displayMenu(menu, interaction) {
     }
 
     return finalString;  
+}*/
+
+function returnFoodNames(section) {
+    var finalFoodNames = '';
+
+    for (const food of section.foods) {
+        finalFoodNames += `${food.name}\n`;
+    }
+
+    return finalFoodNames;
+}
+
+function createEmbedMenuFields(menu) {
+    var finalFields = [];
+
+    for (const section of menu) {
+        finalFields.push({ name: `${section.name}`, value: `${returnFoodNames(section)}`, inline: true });
+    }
+    
+
+    return finalFields;
 }
 
 module.exports = {
@@ -59,7 +75,24 @@ module.exports = {
             return;
         }
         else {
-            await interaction.editReply({ content: displayMenu(menu), ephemeral: true});
+            // create embed message
+            const embedMenu = {
+                color: 0x0099ff,
+                title: `${mealName} at ${hallName}`,
+                url: 'https://dineoncampus.com/northwestern/whats-on-the-menu',
+                author: {
+                    name: 'Aidan and Rebecca! :3',
+                    icon_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqn-ZjtZuIbBCzawJetckI3U2YvWcFz48-bw&s',
+                },
+                description: 'you must be a hungry little boy',
+                thumbnail: {
+                    url: 'https://play-lh.googleusercontent.com/VMp8mdDuut-gkP7Yfx_rnF5ikUsFp71sWS6SOKcHa960YqWrjuMLqJXJyYTjr-c3i2M',
+                },
+                fields: createEmbedMenuFields(menu),
+                timestamp: new Date().toISOString(),
+            };
+
+            await interaction.editReply({ embeds: [embedMenu], ephemeral: true});
         }
 
         return;
