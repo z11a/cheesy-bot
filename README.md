@@ -1,6 +1,6 @@
 ﻿# Cheesy-Bot
 
-A Discord Bot that currently has two commmands:
+A Discord Bot created with the Puppeteer Node.js library that currently has two commmands:
 
 ## /give_cheese_role
 Gives the user that called it the "cheesy role".
